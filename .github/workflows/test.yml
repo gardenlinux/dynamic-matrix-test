@@ -17,6 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        id: ${{ fromJson(needs.setup.outputs.matrix_list) }}
+        id: ${{ fromJson(needs.create.outputs.matrix_list) }}
     steps:
       - run: echo "${{ matrix.id }}"

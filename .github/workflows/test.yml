@@ -7,11 +7,16 @@ jobs:
     steps:
       - id: create
         run: echo 'matrix_list=[ 0, 1, 2, 3 ]' >> "$GITHUB_OUTPUT"
+  test:
+    needs: create
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ needs.setup.outputs.matrix_list }}"
   run:
     needs: create
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        id: ${{ fromJson(needs.setup.outputs.mymatrix) }}
+        id: ${{ fromJson(needs.setup.outputs.matrix_list) }}
     steps:
       - run: echo "${{ matrix.id }}"
